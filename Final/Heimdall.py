@@ -45,7 +45,8 @@ ir_sensor = 5
 GPIO.setup(ir_sensor, GPIO.IN)
 
 s.clear()
-s.put_text("Please stand in the white box and await scanning")
+s.put_text("Please stand in the white box and await scanning",5,10)
+s.redraw()
 
 while True:
     # Read the frame
@@ -73,36 +74,43 @@ while True:
     # the person wants access
     if ((x > 230 and x < 270) and (y > 140 and y < 180) and fc < 50):
         s.clear()
-        s.put_text("Scanning: Please do no move")
+        s.put_text("Scanning: Please do no move",5,10)
+        s.redraw()
         fc = fc + 1
         tc = 5
     elif fc == 50:
         #check for other values and reinitilize in the end
         s.clear()
-        s.put_text("Scan Complete: Await Processing")
+        s.put_text("Scan Complete: Await Processing",5,10)
+        s.redraw()
         mask_flag = mask(img)
         if(not mask_flag):
             s.clear()
-            s.put_text("Cannot allow without mask, please step aside from queue")
+            s.put_text("Cannot allow without mask, please step aside from queue",5,10)
+            s.redraw()
             fc = 0
             tc = 5
             break
         s.clear()
-        s.put_text("Please bring forehead close to red sensor")
+        s.put_text("Please bring forehead close to red sensor",5,10)
+        s.redraw()
         distance = echo.read('cm')
         while(distance > 10):
             s.clear()
-            s.put_text("Please bring forehead close to red sensor")
+            s.put_text("Please bring forehead close to red sensor",5,10)
+            s.redraw()
             distance = echo.read('cm')
         T = temp.get_obj_temp()
         if(T > 99):
             s.clear()
-            s.put_text("Cannot allow without mask, please step aside from queue")
+            s.put_text("Cannot allow due to high body temperature, please step aside from queue",5,10)
+            s.redraw()
             fc = 0
             tc = 5
             break
         s.clear()
-        s.put_text("Retract forehead and please bring hand close to pipe for hand sanitizer")
+        s.put_text("Retract forehead and please bring hand close to pipe for hand sanitizer",5,10)
+        s.redraw()
         if GPIO.input(ir_sensor):
             GPIO.output(pump_pin, True)
             sleep(5)
