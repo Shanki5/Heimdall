@@ -24,24 +24,24 @@ thermometer_address = 0x5a
 # Create temperature sensor instance
 temp = MLX90614(thermometer_address)
 #defining values for ultrasonic sensor
-TRIGGER_PIN = 16
-ECHO_PIN = 12
+TRIGGER_PIN = 8
+ECHO_PIN = 7
 speed_of_sound = 340
 echo = Echo(TRIGGER_PIN, ECHO_PIN, speed_of_sound)
 # Initializing servo motor
 GPIO.setmode(GPIO.BOARD)
-servo = 3 # Pin to which servo is connected
+servo = 4 # Pin to which servo is connected
 GPIO.setup(servo, GPIO.OUT)
 pwm=GPIO.PWM(servo, 50)
 pwm.start(0)
 # Initializing dc pump
 GPIO.setmode(GPIO.BOARD)
-pump_pin = 2
+pump_pin = 21
 GPIO.setup(pump_pin, GPIO.OUT)
 GPIO.output(pump_pin,False)
 # Initializing ir sensor
 GPIO.setmode(GPIO.BOARD)
-ir_sensor = 5
+ir_sensor = 26
 GPIO.setup(ir_sensor, GPIO.IN)
 
 s.clear()
